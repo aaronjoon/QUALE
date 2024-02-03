@@ -15,7 +15,6 @@ discriminator2 = pcvl.Circuit(4,'discriminator2')
 
 full_circuit = pcvl.Circuit(8, "Full Circuit")
 
-phi=np.pi/2
 
 def generate_generator(generator, top_bottom):
     generator.add(1, PS(phi=pcvl.P(f'phi.g1.1.{top_bottom}')))
@@ -125,11 +124,12 @@ def main():
     pcvl.pdisplay(secondary_circuit)
     pcvl.pdisplay(full_circuit)
 
-    print(input_state)
+    processor = pcvl.Processor("SLOS", pcvl.Circuit(8))
+    processor.with_input(pcvl.BasicState([0, 1, 0, 0, 1, 1, 0, 0]))
+    sampler = pcvl.algorithm.Sampler(processor)
 
-    p = pcvl.Processor("SLOS", full_circuit)
-    analysis = pcvl.algorithm.Analyzer(p, outputs)
-    pcvl.pdisplay(analysis)
+    sample_count = sampler.sample_count(1000)
+    return sample_count
 
 if __name__ == "__main__":
     main()
