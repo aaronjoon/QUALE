@@ -12,4 +12,4 @@ The files are generally split according to these principles.
 
 3) loss.py: our math wizard Pradyun himself did the required matlab to get the loss function defined in the paper working. All hail tao hat :)
 
-4) plot.py: how we generated the great graphs that we gave you on the slides. 
+4) plot.py: how we generated the great graphs that we gave you on the slides.

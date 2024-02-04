@@ -61,7 +61,7 @@ def disc_phase(init_weights, alpha):
     weights = init_weights.copy()
     for i in range(5):
         dthetas = compute_dthetas(loss.disc_loss, weights, alpha)
-        weights += dthetas
+        weights -= dthetas
 
         disc_loss, trace2, trace1 = loss.disc_loss(weights)
         print(f"disc_loss: {disc_loss}")
@@ -73,14 +73,14 @@ def gen_phase(init_weights, alpha, disc_loss):
     weights = init_weights.copy()
     for i in range(5):
         dthetas = compute_dthetas(loss.gen_loss, weights, alpha)
-        weights -= dthetas
+        weights += dthetas
         
         gen_loss, trace2, trace1 = loss.gen_loss(weights)
         print(f"gen_loss: {gen_loss}")
         weight_data.append(np.array([gen_loss, trace2, trace1, 1]))
 
-        if (trace2 > trace1):
-            weights += dthetas
+        if (trace1 > trace2):
+            weights -= dthetas
             print("heheheha")
             break
 
@@ -93,7 +93,7 @@ for i in range(250):
 
     gen_weights = gen_phase(gen_weights, 1/((i+1)), disc_loss)
     main.set_weights(main.gen_circuit, gen_weights)
-    np.save("data5.npy", weight_data, np.array(weight_data))
+    np.save("data6.npy", weight_data, np.array(weight_data))
 
 
 

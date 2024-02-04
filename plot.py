@@ -6,6 +6,7 @@ data2 = np.load("data2.npy")
 data3 = np.load("data3.npy")
 data4 = np.load("data4.npy")
 data5 = np.load("data5.npy")
+data6 = np.load("data6.npy")
 
 
 # plt.scatter(range(100), data[0:300, 0])
@@ -14,9 +15,10 @@ data5 = np.load("data5.npy")
 # plt.scatter(range(np.shape(data2)[0]), data2[:, 0])
 # plt.show()
 
-plt.plot(range(np.shape(data5)[0]), data5[:, 1], label="Tr[M*P]")
-plt.plot(range(np.shape(data5)[0]), data5[:, 2], label="Tr[M*tau]")
-
+plt.plot(range(np.shape(data6)[0]), data6[:, 1], label="Tr[M*P]")
+plt.plot(range(np.shape(data6)[0]), data6[:, 2], label="Tr[M*tau]")
+plt.xlim(580,700)
+plt.ylim(0,0.5)
 plt.xlabel("iteration")
 plt.show()
 
