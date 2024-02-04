@@ -95,7 +95,7 @@ def generate_input_state():
 #             pcvl.BasicState([0, 0, 0, 1, 0, 1, 0 , 0]),
 #             pcvl.BasicState([0, 0, 0, 1, 0, 0, 1 , 0]),
 #             pcvl.BasicState([0, 0, 0, 1, 0, 0, 0 , 1])]
-            
+
 def set_weights(circuit, weights):
     for i in range(np.size(weights)):
         circuit.get_parameters()[i].set_value(weights[i])
@@ -115,11 +115,26 @@ full_circuit.add(0, gen_circuit).add(0, disc_circuit)
 
 input_state = generate_input_state()
 
-
 # for param in full_circuit.get_parameters():
 #     param.set_value(np.random.rand()*2*np.pi)
 #     print(param)
 
+Mhat = np.kron(np.array(discriminator1.compute_unitary()), np.array(discriminator2.compute_unitary()))
+Phat = np.kron(np.array(generator1.compute_unitary()), np.array(generator2.compute_unitary()))
+
+Tauhat = np.array([[1/4, 0, 0, 0, 0, 1/4, 0, 0, 0, 0, 1/4, 0, 0, 0, 0, 1/4], [0, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+        0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [1/4, 0, 0, 0,
+        0, 1/4, 0, 0, 0, 0, 1/4, 0, 0, 0, 0, 1/4], [0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+   0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [1/4, 0, 0, 0, 0, 1/4, 0, 0,
+   0, 0, 1/4, 0, 0, 0, 0, 1/4], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0], [1/4, 0, 0, 0, 0, 1/4, 0, 0, 0, 0, 1/4, 
+  0, 0, 0, 0, 1/4]])
 
 # print(len(full_circuit.get_parameters()))
 
@@ -135,6 +150,8 @@ input_state = generate_input_state()
 
 # sample_count = sampler.sample_count(1000)
 # print(sample_count['results'][pcvl.BasicState("|0,0,1,0,0,0,1,0>")])
+
+# pcvl.pdisplay(disc_circuit) #,recursive=True)
 
 # def main():
 
